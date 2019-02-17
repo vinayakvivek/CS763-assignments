@@ -35,7 +35,16 @@ class Model():
         Args:
             input
         """
-        pass
+        num_layers = len(self.Layers)
+        grad_out = deepcopy(gradOutput)
+
+        curr_layer_index = num_layers - 1
+        while curr_layer_index > 0:
+            curr_inp = self.Layers[curr_layer_index - 1].output
+            grad_out = self.Layers[curr_layer_index].backward(curr_inp, grad_out)
+            curr_layer_index -= 1
+
+        self.Layers[0].backward(input, grad_out)
 
     def dispGradParam(self):
         """

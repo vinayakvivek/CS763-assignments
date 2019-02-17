@@ -22,7 +22,7 @@ class Linear(Layer):
 
     def __init__(self, num_inputs, num_outputs, W=None, B=None):
 
-        if W is not None and B is not None:
+        if W is None and B is None:
             # Xavier’s initialization
             self.W = np.random.normal(loc=0.0,
                                       scale = np.sqrt(2 / (num_inputs + num_outputs)),
