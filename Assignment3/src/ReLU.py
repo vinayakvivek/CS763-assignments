@@ -1,8 +1,9 @@
 import torch
 import numpy as np
+from Layer import Layer
 
 
-class ReLU():
+class ReLU(Layer):
 
     def __init__(self):
         pass
@@ -17,21 +18,21 @@ class ReLU():
         self.output = np.maximum(input, 0);
         return self.output
 
-    def backward(self, input, grad_output):
+    def backward(self, input, gradOutput):
         """
         Compute gradient of loss w.r.t. ReLU input
         """
-        assert input.shape == grad_output.shape. # just a safety check
-        self.grad_input = grad_output * (input > 0)
-        return self.grad_input
+        assert input.shape == gradOutput.shape  # just a safety check
+        self.gradInput = gradOutput * (input > 0)
+        return self.gradInput
 
 
 if __name__ == '__main__':
-    
+
     r = ReLU();
     inp = np.random.rand(10, 3);
     out = r.forward(inp)
     # print(out)
 
-    grad_input = r.backward(inp, np.random.rand(10, 3));
-    print(grad_input)
+    gradInput = r.backward(inp, np.random.rand(10, 3));
+    print(gradInput)

@@ -1,29 +1,38 @@
 import torch
+import torchfile
 import numpy as np
+import os
+from Layer import Layer
 
 
-class Linear():
+class Linear(Layer):
 
     """
     Implements a Linear layer of neural network
     f(x) = <W*x> + b
 
     state variables:
-     - `output`: matrix of size [batch_size x num_output]
-     - `W`: weight matrix of size [num_output x num_input]
-     - `B`: bias matrix of size [num_output x 1]
+     - `output`: matrix of size [batch_size x num_outputs]
+     - `W`: weight matrix of size [num_outputs x num_inputs]
+     - `B`: bias matrix of size [num_outputs x 1]
      - `gradW`: weight gradients, same size as W
      - `gradB`: bias gradients, same size as B
-     - `grad_input`: same size as input
+     - `gradInput`: same size as input
     """
 
-    def __init__(self, num_input, num_output):
+    def __init__(self, num_inputs, num_outputs, W=None, B=None):
 
-        # Xavier’s initialization
-        self.W = np.random.normal(loc=0.0, 
-                                  scale = np.sqrt(2 / (num_input + num_output)), 
-                                  size = (num_input, num_output))
-        self.B = np.zeros(num_output)
+        if W is not None and B is not None:
+            # Xavier’s initialization
+            self.W = np.random.normal(loc=0.0,
+                                      scale = np.sqrt(2 / (num_inputs + num_outputs)),
+                                      size = (num_inputs, num_outputs))
+            self.B = np.zeros(num_outputs)
+        else:
+            assert W.shape == (num_inputs, num_outputs)
+            assert B.shape == (num_outputs, )
+            self.W = W
+            self.B = B
 
     def forward(self, input):
         """
@@ -35,29 +44,43 @@ class Linear():
         self.output = np.dot(input, self.W) + self.B
         return self.output
 
-    def backward(self, input, grad_output):
+    def backward(self, input, gradOutput):
         """
         Args:
             input (tensor): of size [batch_size x num_inputs]
-            grad_output (tensor): of size [batch_size x num_outputs]
+            gradOutput (tensor): of size [batch_size x num_outputs]
         Returns:
-            grad_input (tensor): of size [batch_size x num_input]
+            gradInput (tensor): of size [batch_size x num_inputs]
         """
-        self.grad_input = np.dot(grad_output, self.W.T)
+        self.gradInput = np.dot(gradOutput, self.W.T)
 
-        self.gradW = np.dot(input.T, grad_output)
-        self.gradB = grad_output.sum(axis=0)
+        self.gradW = np.dot(input.T, gradOutput)
+        self.gradB = gradOutput.sum(axis=0)
 
-        return self.grad_input
+        return self.gradInput
 
 
 if __name__ == '__main__':
-    
-    l = Linear(3, 4);
+
+    sample_dir = '/Users/vinayak/pro/acads/SEM8/CS763/Assignment3/info/'
+
+    W = torchfile.load(os.path.join(sample_dir, 'W_sample_1.bin'))
+    B = torchfile.load(os.path.join(sample_dir, 'B_sample_1.bin'))
+    inp = torchfile.load(os.path.join(sample_dir, 'input_sample_1.bin'))
+    inp = inp.reshape(-1, (192))
+    gradOutput = torchfile.load(os.path.join(sample_dir, 'gradOutput_sample_1.bin'))
+
+    l = Linear(192, 10, W=W[0].T, B=B[0]);
     # print(l.W)
     # print(l.B)
-    inp = np.random.rand(10, 3);
+    # inp = np.random.rand(10, 3);
     out = l.forward(inp)
     # print(out)
 
-    grad_input = l.backward(inp, np.random.rand(10, 4));
+    gradInput = l.backward(inp, gradOutput);
+    # print(gradInput)
+    print(l.gradB)
+
+    gradB = torchfile.load(os.path.join(sample_dir, 'gradB_sample_1.bin'))
+    print(gradB[0])
+
