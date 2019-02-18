@@ -68,6 +68,20 @@ class Model():
                 layer.gradW = np.zeros_like(layer.W)
                 layer.gradB = np.zeros_like(layer.B)
 
+    def getGradParam(self):
+        """
+        return list of gradW and gradB
+        """
+        gradW_list = []
+        gradB_list = []
+
+        for layer in self.Layers:
+            if layer.has_params:
+                gradW_list.append(layer.gradW)
+                gradB_list.append(layer.gradB)
+
+        return (gradW_list, gradB_list)
+
     def addLayer(self, layer):
         """
         Used to add an object of type Layer to the self.layers.

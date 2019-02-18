@@ -68,9 +68,18 @@ if __name__ == '__main__':
     inp = inp.reshape(-1, (num_input_nodes))
     out = model.forward(inp)
 
+    model.clearGradParam()
+
     gradOutput = load_file(args.og)
     model.backward(inp, gradOutput)
 
+    # save output
     save_file(out, args.o)
 
-    model.dispGradParam()
+    # save gradW and gradB
+    gradW, gradB = model.getGradParam()
+    save_file(gradW, args.ow)
+    save_file(gradB, args.ob)
+
+    # save gradInput
+    save_file(model.Layers[0].gradInput, args.ig)
