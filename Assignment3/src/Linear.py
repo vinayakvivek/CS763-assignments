@@ -21,7 +21,7 @@ class Linear(Layer):
     """
 
     def __init__(self, num_inputs, num_outputs, W=None, B=None):
-
+        super(Linear, self).__init__(has_params=True)
         if W is None and B is None:
             # Xavier’s initialization
             self.W = np.random.normal(loc=0.0,
@@ -33,6 +33,9 @@ class Linear(Layer):
             assert B.shape == (num_outputs, )
             self.W = W
             self.B = B
+
+        self.gradW = np.zeros_like(self.W)
+        self.gradB = np.zeros_like(self.B)
 
     def forward(self, input):
         """

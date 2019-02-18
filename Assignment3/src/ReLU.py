@@ -6,7 +6,7 @@ from Layer import Layer
 class ReLU(Layer):
 
     def __init__(self):
-        pass
+        super(ReLU, self).__init__(has_params=False)
 
     def forward(self, input):
         """

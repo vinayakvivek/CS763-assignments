@@ -53,14 +53,20 @@ class Model():
 
         The output format is a 2D matrix for each Layer with space separated elements.
         """
-        pass
+        for layer in reversed(self.Layers):
+            if layer.has_params:
+                print(layer.gradW.tolist())
+                print(layer.gradB.tolist())
 
     def clearGradParam(self):
         """
         Makes the gradients of the parameters to 0 for every Layer and
         is required before back-propagation of every batch.
         """
-        pass
+        for layer in self.Layers:
+            if layer.has_params:
+                layer.gradW = np.zeros_like(layer.W)
+                layer.gradB = np.zeros_like(layer.B)
 
     def addLayer(self, layer):
         """

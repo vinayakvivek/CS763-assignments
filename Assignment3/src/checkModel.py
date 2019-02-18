@@ -1,5 +1,4 @@
 import torch
-import torchfile
 import os
 import sys
 import numpy as np
@@ -9,6 +8,8 @@ import argparse
 from Linear import Linear
 from ReLU import ReLU
 from Model import Model
+from utils import load_file, save_file
+
 
 LINEAR = "linear"
 RELU = "relu"
@@ -34,8 +35,8 @@ def create_model(config_file):
         weight_file = f.readline().strip()
         bias_file = f.readline().strip()
 
-        weights = torchfile.load(weight_file)
-        biases = torchfile.load(bias_file)
+        weights = load_file(weight_file)
+        biases = load_file(bias_file)
 
     linear_index = 0
     for layer in model.Layers:
@@ -61,13 +62,15 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     model = create_model(args.config)
-    inp = torchfile.load(args.i)
+    inp = load_file(args.i)
     num_input_nodes = np.prod(inp.shape[1:])
 
     inp = inp.reshape(-1, (num_input_nodes))
     out = model.forward(inp)
 
-    gradOutput = torchfile.load(args.og)
+    gradOutput = load_file(args.og)
     model.backward(inp, gradOutput)
 
-    print(out)
+    save_file(out, args.o)
+
+    model.dispGradParam()
