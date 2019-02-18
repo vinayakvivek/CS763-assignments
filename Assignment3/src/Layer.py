@@ -12,3 +12,6 @@ class Layer():
 
     def backward(self, input, grad_output):
         raise NotImplementedError
+
+    def as_dict(self):
+        raise NotImplementedError

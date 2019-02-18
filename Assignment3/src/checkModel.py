@@ -83,3 +83,5 @@ if __name__ == '__main__':
 
     # save gradInput
     save_file(model.Layers[0].gradInput, args.ig)
+
+    model.save("outputs/model2.bin")

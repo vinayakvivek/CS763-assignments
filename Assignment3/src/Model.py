@@ -7,6 +7,7 @@ from copy import deepcopy
 
 from Linear import Linear
 from ReLU import ReLU
+from utils import save_file, load_file
 
 
 class Model():
@@ -87,3 +88,15 @@ class Model():
         Used to add an object of type Layer to the self.layers.
         """
         self.Layers.append(layer)
+
+    def save(self, file_path):
+        model_data = [x.as_dict() for x in self.Layers]
+        save_file(model_data, file_path)
+
+    def load(self, file_path):
+        model_data = load_file(file_path)
+        for x in model_data:
+            if x["type"] == "Linear":
+                self.addLayer(Linear(x["num_inputs"], x["num_outputs"], x["W"], x["B"]))
+            elif x["type"] == "ReLU":
+                self.addLayer(ReLU())

@@ -26,6 +26,11 @@ class ReLU(Layer):
         self.gradInput = gradOutput * (input > 0)
         return self.gradInput
 
+    def as_dict(self):
+        return {
+            "type": "ReLU"
+        }
+
 
 if __name__ == '__main__':
 

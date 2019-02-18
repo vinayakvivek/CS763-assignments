@@ -22,6 +22,9 @@ class Linear(Layer):
 
     def __init__(self, num_inputs, num_outputs, W=None, B=None):
         super(Linear, self).__init__(has_params=True)
+        self.num_inputs = num_inputs
+        self.num_outputs = num_outputs
+
         if W is None and B is None:
             # Xavier’s initialization
             self.W = np.random.normal(loc=0.0,
@@ -67,10 +70,19 @@ class Linear(Layer):
         returns structure and weights as a dict
         {
             "type": "Linear",
-            "num_inputs"
+            "num_inputs": <num_inputs>,
+            "num_outputs": <num_outputs>,
+            "W": <W>,
+            "B": <B>,
         }
         """
-        pass
+        return {
+            "type": "Linear",
+            "num_inputs": self.num_inputs,
+            "num_outputs": self.num_outputs,
+            "W": self.W,
+            "B": self.B,
+        }
 
 
 if __name__ == '__main__':
