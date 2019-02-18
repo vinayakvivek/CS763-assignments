@@ -26,10 +26,10 @@ class Linear(Layer):
             # Xavier’s initialization
             self.W = np.random.normal(loc=0.0,
                                       scale = np.sqrt(2 / (num_inputs + num_outputs)),
-                                      size = (num_inputs, num_outputs))
+                                      size = (num_outputs, num_inputs))
             self.B = np.zeros(num_outputs)
         else:
-            assert W.shape == (num_inputs, num_outputs)
+            assert W.shape == (num_outputs, num_inputs)
             assert B.shape == (num_outputs, )
             self.W = W
             self.B = B
@@ -44,7 +44,7 @@ class Linear(Layer):
         Returns:
             output (tensor): of size [batch_size x num_outputs]
         """
-        self.output = np.dot(input, self.W) + self.B
+        self.output = np.dot(input, self.W.T) + self.B
         return self.output
 
     def backward(self, input, gradOutput):
@@ -55,12 +55,22 @@ class Linear(Layer):
         Returns:
             gradInput (tensor): of size [batch_size x num_inputs]
         """
-        self.gradInput = np.dot(gradOutput, self.W.T)
+        self.gradInput = np.dot(gradOutput, self.W)
 
         self.gradW = np.dot(input.T, gradOutput)
         self.gradB = gradOutput.sum(axis=0)
 
         return self.gradInput
+
+    def as_dict(self):
+        """
+        returns structure and weights as a dict
+        {
+            "type": "Linear",
+            "num_inputs"
+        }
+        """
+        pass
 
 
 if __name__ == '__main__':

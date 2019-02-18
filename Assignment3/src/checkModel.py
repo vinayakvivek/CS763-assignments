@@ -41,7 +41,7 @@ def create_model(config_file):
     linear_index = 0
     for layer in model.Layers:
         if isinstance(layer, Linear):
-            layer.W = weights[linear_index].T
+            layer.W = weights[linear_index]
             layer.B = biases[linear_index]
             linear_index += 1
 
