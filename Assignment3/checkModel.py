@@ -5,10 +5,10 @@ import numpy as np
 from copy import deepcopy
 import argparse
 
-from Linear import Linear
-from ReLU import ReLU
-from Model import Model
-from utils import load_file, save_file
+from src.Linear import Linear
+from src.ReLU import ReLU
+from src.Model import Model
+from src.utils import load_file, save_file
 
 
 LINEAR = "linear"

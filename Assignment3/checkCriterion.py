@@ -5,8 +5,8 @@ import numpy as np
 from copy import deepcopy
 import argparse
 
-from Criterion import Criterion
-from utils import load_file, save_file
+from src.Criterion import Criterion
+from src.utils import load_file, save_file
 
 
 if __name__ == '__main__':

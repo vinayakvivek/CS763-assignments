@@ -1,6 +1,6 @@
-2
+3
 linear 192 10
 relu
 linear 10 3
-/path/to/weight_sample_2.bin
-/path/to/bias_sample_2.bin
+/Users/vinayak/pro/acads/SEM8/CS763/Assignment3/info/W_sample_2.bin
+/Users/vinayak/pro/acads/SEM8/CS763/Assignment3/info/B_sample_2.bin

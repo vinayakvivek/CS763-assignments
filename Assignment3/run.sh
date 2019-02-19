@@ -1,7 +1,7 @@
 python3 checkModel.py \
-    -config ../info/modelConfig_2.txt \
-    -i ../info/input_sample_2.bin \
-    -og ../info/gradOutput_sample_2.bin \
+    -config info/modelConfig_2.txt \
+    -i info/input_sample_2.bin \
+    -og info/gradOutput_sample_2.bin \
     -o outputs/output_sample_2.bin \
     -ow outputs/gradW_sample_2.bin \
     -ob outputs/gradB_sample_2.bin \

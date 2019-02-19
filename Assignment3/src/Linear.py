@@ -2,7 +2,7 @@ import torch
 import torchfile
 import numpy as np
 import os
-from Layer import Layer
+from src.Layer import Layer
 
 
 class Linear(Layer):
@@ -60,7 +60,7 @@ class Linear(Layer):
         """
         self.gradInput = np.dot(gradOutput, self.W)
 
-        self.gradW = np.dot(input.T, gradOutput)
+        self.gradW = np.dot(input.T, gradOutput).T
         self.gradB = gradOutput.sum(axis=0)
 
         return self.gradInput

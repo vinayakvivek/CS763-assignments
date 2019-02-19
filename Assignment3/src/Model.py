@@ -5,9 +5,9 @@ import sys
 import numpy as np
 from copy import deepcopy
 
-from Linear import Linear
-from ReLU import ReLU
-from utils import save_file, load_file
+from src.Linear import Linear
+from src.ReLU import ReLU
+from src.utils import save_file, load_file
 
 
 class Model():

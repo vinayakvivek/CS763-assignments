@@ -1,6 +1,6 @@
 import torch
 import numpy as np
-from Layer import Layer
+from src.Layer import Layer
 
 
 class ReLU(Layer):

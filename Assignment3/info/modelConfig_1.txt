@@ -1,4 +1,4 @@
 1
 linear 192 10
-/path/to/weight_sample_1.bin
-/path/to/bias_sample_1.bin
+/Users/vinayak/pro/acads/SEM8/CS763/Assignment3/info/W_sample_1.bin
+/Users/vinayak/pro/acads/SEM8/CS763/Assignment3/info/B_sample_1.bin

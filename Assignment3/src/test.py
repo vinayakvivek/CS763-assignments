@@ -5,9 +5,9 @@ import sys
 import numpy as np
 from copy import deepcopy
 
-from Linear import Linear
-from ReLU import ReLU
-from Model import Model
+from src.Linear import Linear
+from src.ReLU import ReLU
+from src.Model import Model
 
 
 if __name__ == '__main__':

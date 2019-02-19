@@ -23,7 +23,7 @@ class SGDOptimizer():
         exponential decay of learning rate
         """
         if self.decay is not None:
-            self.lr = self.lr0 * np.exp(self.dacay * self.num_steps)
+            self.lr = self.lr0 * np.exp(self.decay * self.num_steps)
 
     def init_momentum_params(self):
         """
